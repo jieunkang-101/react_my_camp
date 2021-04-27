@@ -2,5 +2,6 @@
   "workbench.colorCustomizations": {
     "titleBar.activeBackground": "#53944b",
     "titleBar.inactiveBackground": "#53944b"
-  }
+  },
+  "explorer.compactFolders": false
 }

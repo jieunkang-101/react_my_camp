@@ -1,14 +1,9 @@
 import React from 'react';
 import './App.css';
+import Login from './components/Login';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>my camping</h1>
-      </header>
-    </div>
-  );
+function App({ authService }: any) {
+  return <Login authService={authService} />;
 }
 
 export default App;
