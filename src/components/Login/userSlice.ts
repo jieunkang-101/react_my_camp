@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk } from '../../redux/store';
 
 export interface UserState {
   uid: string;
-  email: string;
+  name: string;
   photoURL: string | null;
   idToken: string | null;
   refreshToken: string | null;
@@ -13,10 +14,10 @@ export interface UserState {
 
 export const initialUserState: UserState = {
   uid: '',
-  email: '',
+  name: '',
   photoURL: '',
-  idToken: '',
-  refreshToken: '',
+  idToken: null,
+  refreshToken: null,
   isLoading: false,
   error: null,
   status: 'onStart',
@@ -38,16 +39,54 @@ export const setError = (
   state.error = payload;
 };
 
+export const setUserState = (
+  state: UserState,
+  {
+    payload,
+  }: PayloadAction<{
+    uid: string;
+    name: string;
+    photoURL: string;
+    idToken: string;
+    refreshToken: string;
+  }>
+) => {
+  state.uid = payload.uid;
+  state.name = payload.name;
+  state.photoURL = payload.photoURL;
+  state.idToken = payload.idToken;
+  state.refreshToken = payload.refreshToken;
+};
+
 // ======= Slice =================
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
   reducers: {
     setLoading: setIsLoading,
+    loginSuccess: setUserState,
     logoutFailure: setError,
   },
 });
 export default userSlice.reducer;
 
 // ======= Actions ================
-export const { setLoading, logoutFailure } = userSlice.actions;
+export const { setLoading, loginSuccess, logoutFailure } = userSlice.actions;
+
+export const login = (
+  uid: string,
+  name: string,
+  photoURL: string,
+  idToken: string,
+  refreshToken: string
+): AppThunk => async (dispatch) => {
+  dispatch(
+    loginSuccess({
+      uid,
+      name,
+      photoURL,
+      idToken,
+      refreshToken,
+    })
+  );
+};
