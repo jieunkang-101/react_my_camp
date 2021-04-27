@@ -21,8 +21,6 @@ const persistConfig = {
   timeout: null!, // to prevent this error : "redux-persist: rehydarate for "user" called after timeout"
 };
 
-console.log('S', storage);
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({

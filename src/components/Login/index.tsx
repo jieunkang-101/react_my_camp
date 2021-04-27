@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import firebase from 'firebase/app';
+import styles from './Login.module.css';
 
 const Login = ({ authService }: any) => {
   const onLogin = (event: any) => {
@@ -21,16 +22,20 @@ const Login = ({ authService }: any) => {
   };
 
   return (
-    <section>
+    <section className={styles.login}>
       <Header />
       <section>
         <h1>Login</h1>
-        <ul>
-          <li>
-            <button onClick={onLogin}>Google</button>
+        <ul className={styles.list}>
+          <li className={styles.item}>
+            <button className={styles.button} onClick={onLogin}>
+              Google
+            </button>
           </li>
-          <li>
-            <button onClick={onLogin}>Github</button>
+          <li className={styles.item}>
+            <button className={styles.button} onClick={onLogin}>
+              Github
+            </button>
           </li>
         </ul>
       </section>
