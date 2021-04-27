@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './Login.module.css';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { login } from './userSlice';
+import { login } from '../../redux/userSlice';
+import { useAppSelector } from '../../redux/hooks';
 
 const Login = ({ authService }: any) => {
+  const idToken = useAppSelector((state) => state.user.idToken);
+  const uid = useAppSelector((state) => state.user.uid);
+  const isAuthenticated = !idToken ?? false;
+
   const history = useHistory();
   const goToMaker = (userId: string) => {
     history.push({
@@ -38,36 +43,38 @@ const Login = ({ authService }: any) => {
       });
   };
 
-  useEffect(() => {
-    authService.onAuthChange((user: any) => {
-      user && goToMaker(user.uid);
-    });
-  });
-
-  const onLogout = (event: any) => {
-    console.log('Logout', event);
-  };
+  // useEffect(() => {
+  //   authService.onAuthChange((user: any) => {
+  //     console.log('USER', user.uid);
+  //   });
+  // });
 
   return (
-    <section className={styles.login}>
-      <Header onLogout={onLogout} />
-      <section>
-        <h1>Login</h1>
-        <ul className={styles.list}>
-          <li className={styles.item}>
-            <button className={styles.button} onClick={onLogin}>
-              Google
-            </button>
-          </li>
-          <li className={styles.item}>
-            <button className={styles.button} onClick={onLogin}>
-              Github
-            </button>
-          </li>
-        </ul>
-      </section>
-      <Footer />
-    </section>
+    <>
+      {isAuthenticated ? (
+        <section className={styles.login}>
+          <Header />
+          <section>
+            <h1>Login</h1>
+            <ul className={styles.list}>
+              <li className={styles.item}>
+                <button className={styles.button} onClick={onLogin}>
+                  Google
+                </button>
+              </li>
+              <li className={styles.item}>
+                <button className={styles.button} onClick={onLogin}>
+                  Github
+                </button>
+              </li>
+            </ul>
+          </section>
+          <Footer />
+        </section>
+      ) : (
+        goToMaker(uid)
+      )}
+    </>
   );
 };
 

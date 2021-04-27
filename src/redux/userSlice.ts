@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '../../redux/store';
+import { AppThunk } from './store';
 
 export interface UserState {
   uid: string;
@@ -9,7 +9,6 @@ export interface UserState {
   refreshToken: string | null;
   isLoading: boolean;
   error: string | null;
-  status: string;
 }
 
 export const initialUserState: UserState = {
@@ -20,7 +19,6 @@ export const initialUserState: UserState = {
   refreshToken: null,
   isLoading: false,
   error: null,
-  status: 'onStart',
 };
 
 // ==== Action creators ======
@@ -29,7 +27,6 @@ export const setIsLoading = (
   { payload }: PayloadAction<{ isLoading: boolean; status: string }>
 ) => {
   state.isLoading = payload.isLoading;
-  state.status = payload.status;
 };
 
 export const setError = (
@@ -56,6 +53,18 @@ export const setUserState = (
   state.photoURL = payload.photoURL;
   state.idToken = payload.idToken;
   state.refreshToken = payload.refreshToken;
+  state.isLoading = false;
+  state.error = null;
+};
+
+export const revokeUserState = (state: UserState) => {
+  state.uid = '';
+  state.name = '';
+  state.photoURL = '';
+  state.idToken = null;
+  state.refreshToken = null;
+  state.isLoading = false;
+  state.error = null;
 };
 
 // ======= Slice =================
@@ -65,13 +74,19 @@ export const userSlice = createSlice({
   reducers: {
     setLoading: setIsLoading,
     loginSuccess: setUserState,
-    logoutFailure: setError,
+    loginFailure: setError,
+    logoutSuccess: revokeUserState,
   },
 });
 export default userSlice.reducer;
 
 // ======= Actions ================
-export const { setLoading, loginSuccess, logoutFailure } = userSlice.actions;
+export const {
+  setLoading,
+  loginSuccess,
+  loginFailure,
+  logoutSuccess,
+} = userSlice.actions;
 
 export const login = (
   uid: string,
@@ -89,4 +104,9 @@ export const login = (
       refreshToken,
     })
   );
+};
+
+export const logout = (): AppThunk => async (dispatch) => {
+  console.log('logged out');
+  dispatch(logoutSuccess());
 };

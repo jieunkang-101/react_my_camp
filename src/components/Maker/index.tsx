@@ -1,5 +1,16 @@
 import React from 'react';
 
-const Maker = (props: any) => <h1>maker</h1>;
+import Header from '../Header';
+import Footer from '../Footer';
+import styles from './Maker.module.css';
+
+const Maker = ({ authService }: any) => {
+  return (
+    <section className={styles.maker}>
+      <Header authService={authService} />
+      <Footer />
+    </section>
+  );
+};
 
 export default Maker;

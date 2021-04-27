@@ -8,6 +8,7 @@ class AuthService {
 
   logout() {
     firebase.auth().signOut();
+    console.log('click');
   }
 
   onAuthChange(onUserChanged) {
