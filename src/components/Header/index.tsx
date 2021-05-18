@@ -1,19 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/userSlice';
-import { useHistory } from 'react-router';
 
-const Header = ({ authService }: any) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const onLogout = () => {
-    authService.logout();
-    dispatch(logout());
-    history.push('/');
-  };
-
+const Header = ({ onLogout }: any) => {
   return (
     <header className={styles.header}>
       {onLogout && (
@@ -22,7 +10,7 @@ const Header = ({ authService }: any) => {
         </button>
       )}
       <img className={styles.logo} src="/images/logo.png" alt="logo" />
-      <h1 className={styles.title}>MyCamp</h1>
+      <h1 className={styles.title}>My Campings</h1>
     </header>
   );
 };
