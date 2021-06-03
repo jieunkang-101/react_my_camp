@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './CardEditForm.module.css';
-import ImageFileInput from '../ImageFileInput';
-import Button from '../Button';
-import { CardProps } from '../../types/Camping';
+import ImageFileInput from '../../ImageFileInput';
+import Button from '../../Button';
+import { CardProps } from '../../../types/Camping';
 
 const CardEditForm = ({ card }: CardProps) => {
   const {
@@ -35,12 +35,7 @@ const CardEditForm = ({ card }: CardProps) => {
         <option value="dark">Dark</option>
         <option value="colorful">Colorful</option>
       </select>
-      <input
-        className={styles.input}
-        type="text"
-        name="websiteURL"
-        value={websiteURL}
-      />
+
       <input className={styles.input} type="text" name="site" value={site} />
       <input
         className={styles.input}
@@ -53,6 +48,12 @@ const CardEditForm = ({ card }: CardProps) => {
         type="text"
         name="checkOut"
         value={checkOut}
+      />
+      <input
+        className={styles.input}
+        type="text"
+        name="websiteURL"
+        value={websiteURL}
       />
       <textarea
         className={styles.textarea}

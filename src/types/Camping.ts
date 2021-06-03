@@ -19,4 +19,5 @@ export interface CardProps {
 
 export interface CardsProps {
   cards: Camping[];
+  addCard: (card: Camping) => void;
 }

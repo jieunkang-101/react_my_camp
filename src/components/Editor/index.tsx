@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './Editor.module.css';
-import CardEditForm from '../CardEditForm';
+import CardEditForm from '../Forms/CardEditForm';
+import CardAddForm from '../Forms/CardAddForm';
 import { CardsProps } from '../../types/Camping';
 
-const Editor = ({ cards }: CardsProps) => (
+const Editor = ({ cards, addCard }: CardsProps) => (
   <section className={styles.editor}>
     <h1 className={styles.title}>Card Maker</h1>
     <ul>
@@ -11,6 +12,7 @@ const Editor = ({ cards }: CardsProps) => (
         <CardEditForm key={card.id} card={card} />
       ))}
     </ul>
+    <CardAddForm onAdd={addCard} />
   </section>
 );
 
