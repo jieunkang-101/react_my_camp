@@ -30,21 +30,22 @@ const CardEditForm = ({ card, updateCard, deleteCard }: CardEditFormProps) => {
     fileURL,
   } = card;
 
-  const onChange = (event: React.FormEvent) => {
+  const onChange = (event: any) => {
     if (event.currentTarget == null) {
       return;
     }
     event.preventDefault();
-    console.log(event.currentTarget);
+    console.log(event.currentTarget.name);
     updateCard({
       ...card,
-      //  [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 
   const onSubmit = () => {
-    console.log('submit');
+    deleteCard(card);
   };
+
   return (
     <form className={styles.form}>
       <input
