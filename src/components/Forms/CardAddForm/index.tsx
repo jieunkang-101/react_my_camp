@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import styles from './CardAddForm.module.css';
 import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
-import { Camping } from '../../../types/Camping';
+import { Camping, CardAddFormProps } from '../../../types/Camping';
 import { v1 as uuidV1 } from 'uuid';
 
-const CardAddForm = ({ onAdd }: any) => {
+const CardAddForm = ({ onAdd }: CardAddFormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
@@ -36,7 +36,7 @@ const CardAddForm = ({ onAdd }: any) => {
       fileURL: '',
     };
     if (formRef.current) formRef.current.reset();
-    console.log(card);
+    onAdd(card);
   };
 
   return (

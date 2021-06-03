@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './CardEditForm.module.css';
 import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
-import { CardProps } from '../../../types/Camping';
+import { CardEditFormProps } from '../../../types/Camping';
 
-const CardEditForm = ({ card }: CardProps) => {
+const CardEditForm = ({ card, updateCard, deleteCard }: CardEditFormProps) => {
+  // const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const themeRef = useRef<HTMLSelectElement>(null);
+  const siteRef = useRef<HTMLInputElement>(null);
+  const checkInRef = useRef<HTMLInputElement>(null);
+  const checkOutRef = useRef<HTMLInputElement>(null);
+  const websiteURLRef = useRef<HTMLInputElement>(null);
+  const activitiesRef = useRef<HTMLTextAreaElement>(null);
+  const placeVisitedRef = useRef<HTMLTextAreaElement>(null);
+
   const {
-    theme,
     name,
+    theme,
     location,
     websiteURL,
     site,
@@ -18,52 +29,97 @@ const CardEditForm = ({ card }: CardProps) => {
     fileName,
     fileURL,
   } = card;
+
+  const onChange = (event: React.FormEvent) => {
+    if (event.currentTarget == null) {
+      return;
+    }
+    event.preventDefault();
+    console.log(event.currentTarget);
+    updateCard({
+      ...card,
+      //  [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
   const onSubmit = () => {
     console.log('submit');
   };
   return (
     <form className={styles.form}>
-      <input className={styles.input} type="text" name="name" value={name} />
       <input
+        ref={nameRef}
+        className={styles.input}
+        type="text"
+        name="name"
+        value={name}
+        onChange={onChange}
+      />
+      <input
+        ref={locationRef}
         className={styles.input}
         type="text"
         name="location"
         value={location}
+        onChange={onChange}
       />
-      <select className={styles.select} name="theme" value={theme}>
+      <select
+        ref={themeRef}
+        className={styles.select}
+        name="theme"
+        value={theme}
+        onChange={onChange}
+      >
         <option value="light">Light</option>
         <option value="dark">Dark</option>
         <option value="colorful">Colorful</option>
       </select>
 
-      <input className={styles.input} type="text" name="site" value={site} />
       <input
+        ref={siteRef}
+        className={styles.input}
+        type="text"
+        name="site"
+        value={site}
+        onChange={onChange}
+      />
+      <input
+        ref={checkInRef}
         className={styles.input}
         type="text"
         name="checkIn"
         value={checkIn}
+        onChange={onChange}
       />
       <input
+        ref={checkOutRef}
         className={styles.input}
         type="text"
         name="checkOut"
         value={checkOut}
+        onChange={onChange}
       />
       <input
+        ref={websiteURLRef}
         className={styles.input}
         type="text"
         name="websiteURL"
         value={websiteURL}
+        onChange={onChange}
       />
       <textarea
+        ref={placeVisitedRef}
         className={styles.textarea}
         name="placeVisited"
         value={placeVisited}
+        onChange={onChange}
       />
       <textarea
+        ref={activitiesRef}
         className={styles.textarea}
         name="activities"
         value={activities}
+        onChange={onChange}
       />
       <div className={styles.fileInput}>
         <ImageFileInput />

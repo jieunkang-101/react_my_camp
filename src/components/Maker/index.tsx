@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/userSlice';
 import { useHistory } from 'react-router';
 import { RootState } from '../../redux/rootReducer';
-import { Camping } from '../../types/Camping';
+import { Camping, Campings } from '../../types/Camping';
 
 const Maker = ({ authService }: any) => {
-  const [cards, setCards] = useState<Camping[]>([
-    {
+  const [cards, setCards] = useState<Campings>({
+    1: {
       id: '1',
-      theme: 'dark',
+      theme: 'Dark',
       name: 'Jessie M. Honeyman Memorial State Park',
       location: 'Florence, OR',
       websiteURL:
@@ -27,9 +27,9 @@ const Maker = ({ authService }: any) => {
       fileName: 'camp_stamp',
       fileURL: null,
     },
-    {
+    2: {
       id: '2',
-      theme: 'light',
+      theme: 'Light',
       name: 'Tumalo State Park',
       location: 'Bend, OR',
       websiteURL:
@@ -42,9 +42,9 @@ const Maker = ({ authService }: any) => {
       fileName: 'camp_stamp',
       fileURL: null,
     },
-    {
+    3: {
       id: '3',
-      theme: 'colorful',
+      theme: 'Colorful',
       name: 'Cape Lookout State Park',
       location: 'Tillamook, OR',
       websiteURL:
@@ -57,7 +57,7 @@ const Maker = ({ authService }: any) => {
       fileName: 'camp_stamp',
       fileURL: 'or_state_parks.png',
     },
-  ]);
+  });
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -76,16 +76,34 @@ const Maker = ({ authService }: any) => {
     }
   });
 
-  const addCard = (card: Camping) => {
-    const updated = [...cards, card];
-    setCards(updated);
+  const createOrUpdateCard = (card: Camping) => {
+    setCards((cards) => {
+      const updatedCards = { ...cards };
+      console.log('update', updatedCards);
+      updatedCards[card.id] = card;
+      return updatedCards;
+    });
+  };
+
+  const deleteCard = (card: Camping) => {
+    setCards((cards) => {
+      const updatedCards = { ...cards };
+      console.log('delete', updatedCards);
+      delete updatedCards[card.id];
+      return updatedCards;
+    });
   };
 
   return (
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} addCard={addCard} />
+        <Editor
+          cards={cards}
+          addCard={createOrUpdateCard}
+          updateCard={createOrUpdateCard}
+          deleteCard={deleteCard}
+        />
         <Preview cards={cards} />
       </div>
       <Footer />

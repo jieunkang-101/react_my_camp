@@ -42,11 +42,11 @@ const Card = ({ card }: CardProps) => {
 
 function getStyles(theme: string) {
   switch (theme) {
-    case 'dark':
+    case 'Dark':
       return styles.dark;
-    case 'light':
+    case 'Light':
       return styles.light;
-    case 'colorful':
+    case 'Colorful':
       return styles.colorful;
     default:
       throw new Error(`unknown theme: ${theme}`);
