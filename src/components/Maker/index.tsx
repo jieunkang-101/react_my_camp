@@ -10,7 +10,7 @@ import { useHistory } from 'react-router';
 import { RootState } from '../../redux/rootReducer';
 import { Camping, Campings } from '../../types/Camping';
 
-const Maker = ({ authService }: any) => {
+const Maker = ({ FileInput, authService }: any) => {
   const [cards, setCards] = useState<Campings>({
     1: {
       id: '1',
@@ -99,6 +99,7 @@ const Maker = ({ authService }: any) => {
       <Header onLogout={onLogout} />
       <div className={styles.container}>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={createOrUpdateCard}
           updateCard={createOrUpdateCard}

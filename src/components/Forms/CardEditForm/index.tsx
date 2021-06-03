@@ -1,11 +1,14 @@
 import React, { useRef } from 'react';
 import styles from './CardEditForm.module.css';
-import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
 import { CardEditFormProps } from '../../../types/Camping';
 
-const CardEditForm = ({ card, updateCard, deleteCard }: CardEditFormProps) => {
-  // const formRef = useRef<HTMLFormElement>(null);
+const CardEditForm = ({
+  FileInput,
+  card,
+  updateCard,
+  deleteCard,
+}: CardEditFormProps) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const themeRef = useRef<HTMLSelectElement>(null);
@@ -123,7 +126,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: CardEditFormProps) => {
         onChange={onChange}
       />
       <div className={styles.fileInput}>
-        <ImageFileInput />
+        <FileInput />
       </div>
       <Button name="Delete" onClick={onSubmit} />
     </form>

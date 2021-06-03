@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import styles from './CardAddForm.module.css';
-import ImageFileInput from '../../ImageFileInput';
+// import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
 import { Camping, CardAddFormProps } from '../../../types/Camping';
 import { v1 as uuidV1 } from 'uuid';
 
-const CardAddForm = ({ onAdd }: CardAddFormProps) => {
+const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
@@ -107,7 +107,7 @@ const CardAddForm = ({ onAdd }: CardAddFormProps) => {
         placeholder="activities"
       />
       <div className={styles.fileInput}>
-        <ImageFileInput />
+        <FileInput />
       </div>
       <Button name="Add" onClick={onSubmit} />
     </form>
