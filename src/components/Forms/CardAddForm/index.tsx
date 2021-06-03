@@ -1,71 +1,62 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import styles from './CardAddForm.module.css';
 import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
 import { Camping } from '../../../types/Camping';
-
-// interface CardAddFormValues {
-//   name: string;
-// }
+import { v1 as uuidV1 } from 'uuid';
 
 const CardAddForm = ({ onAdd }: any) => {
-  // const formRef = useRef<HTMLFormElement>(null);
-  // const nameRef = useRef(null);
-  // const locationRef = useRef<HTMLInputElement>(null);
-  // const themeRef = useRef<HTMLSelectElement>(null);
-  // const siteRef = useRef<HTMLInputElement>(null);
-  // const checkInRef = useRef<HTMLInputElement>(null);
-  // const checkOutRef = useRef<HTMLInputElement>(null);
-  // const websiteURLRef = useRef<HTMLInputElement>(null);
-  // const activitiesRef = useRef<HTMLTextAreaElement>(null);
-  // const placeVisitedRef = useRef<HTMLTextAreaElement>(null);
-  const [card, setCard] = useState<Camping>({
-    id: '',
-    theme: '',
-    name: '',
-    location: '',
-    websiteURL: '',
-    site: '',
-    checkIn: '',
-    checkOut: '',
-    activities: '',
-    placeVisited: '',
-    fileName: '',
-    fileURL: '',
-  });
-  const handleChange = (key: string, value: any) => {
-    setCard((current) => ({
-      ...current,
-      [key]: value,
-    }));
-  };
-  console.log(card);
+  const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const themeRef = useRef<HTMLSelectElement>(null);
+  const siteRef = useRef<HTMLInputElement>(null);
+  const checkInRef = useRef<HTMLInputElement>(null);
+  const checkOutRef = useRef<HTMLInputElement>(null);
+  const websiteURLRef = useRef<HTMLInputElement>(null);
+  const activitiesRef = useRef<HTMLTextAreaElement>(null);
+  const placeVisitedRef = useRef<HTMLTextAreaElement>(null);
 
-  const onSubmit = (event: any) => {
-    // console.log('submit:', event);
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    const card: Camping = {
+      id: uuidV1(),
+      name: nameRef.current ? nameRef.current.value : '',
+      theme: themeRef.current ? themeRef.current.value : '',
+      location: locationRef.current ? locationRef.current.value : '',
+      websiteURL: websiteURLRef.current ? websiteURLRef.current.value : '',
+      site: siteRef.current ? siteRef.current.value : '',
+      checkIn: checkInRef.current ? checkInRef.current.value : '',
+      checkOut: checkOutRef.current ? checkOutRef.current.value : '',
+      activities: activitiesRef.current ? activitiesRef.current.value : '',
+      placeVisited: placeVisitedRef.current
+        ? placeVisitedRef.current.value
+        : '',
+      fileName: '',
+      fileURL: '',
+    };
+    if (formRef.current) formRef.current.reset();
+    console.log(card);
   };
+
   return (
-    <form className={styles.form}>
+    <form ref={formRef} className={styles.form}>
       <input
-        // ref={nameRef}
+        ref={nameRef}
         className={styles.input}
         type="text"
         name="name"
         placeholder="name"
-        // value={card.name}
-        onChange={(value) => console.log(value)}
-        // onChange={(value) => handleChange('name', value)}
       />
       <input
-        // // ref={locationRef}
+        ref={locationRef}
         className={styles.input}
         type="text"
         name="location"
         placeholder="location"
       />
       <select
-        // // ref={themeRef}
+        ref={themeRef}
         className={styles.select}
         name="theme"
         placeholder="theme"
@@ -76,41 +67,41 @@ const CardAddForm = ({ onAdd }: any) => {
       </select>
 
       <input
-        // // ref={siteRef}
+        ref={siteRef}
         className={styles.input}
         type="text"
         name="site"
         placeholder="site"
       />
       <input
-        // // ref={checkInRef}
+        ref={checkInRef}
         className={styles.input}
         type="text"
         name="checkIn"
         placeholder="check-in date"
       />
       <input
-        // // ref={checkOutRef}
+        ref={checkOutRef}
         className={styles.input}
         type="text"
         name="checkOut"
         placeholder="check-out date"
       />
       <input
-        // // ref={websiteURLRef}
+        ref={websiteURLRef}
         className={styles.input}
         type="text"
         name="websiteURL"
         placeholder="website URL"
       />
       <textarea
-        // // ref={placeVisitedRef}
+        ref={placeVisitedRef}
         className={styles.textarea}
         name="placeVisited"
         placeholder="place visited"
       />
       <textarea
-        // // ref={activitiesRef}
+        ref={activitiesRef}
         className={styles.textarea}
         name="activities"
         placeholder="activities"
