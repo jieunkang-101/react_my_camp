@@ -10,55 +10,9 @@ import { useHistory } from 'react-router';
 import { RootState } from '../../redux/rootReducer';
 import { Camping, Campings } from '../../types/Camping';
 
-const Maker = ({ FileInput, authService }: any) => {
-  const [cards, setCards] = useState<Campings>({
-    1: {
-      id: '1',
-      theme: 'Dark',
-      name: 'Jessie M. Honeyman Memorial State Park',
-      location: 'Florence, OR',
-      websiteURL:
-        'https://stateparks.oregon.gov/index.cfm?do=park.profile&parkId=95',
-      site: '290 F',
-      checkIn: 'Fri May 07 2021',
-      checkOut: 'Sun May 09 2021',
-      activities: 'biking, kayaking, swimming',
-      placeVisited: 'Sand Dune Day-use Area',
-      fileName: 'camp_stamp',
-      fileURL: null,
-    },
-    2: {
-      id: '2',
-      theme: 'Light',
-      name: 'Tumalo State Park',
-      location: 'Bend, OR',
-      websiteURL:
-        'https://stateparks.oregon.gov/index.cfm?do=park.profile&parkId=34',
-      site: '080 A',
-      checkIn: 'Fri May 21 2021',
-      checkOut: 'Sun May 23 2021',
-      activities: 'biking, tubing',
-      placeVisited: 'Deschutes River Trail',
-      fileName: 'camp_stamp',
-      fileURL: null,
-    },
-    3: {
-      id: '3',
-      theme: 'Colorful',
-      name: 'Cape Lookout State Park',
-      location: 'Tillamook, OR',
-      websiteURL:
-        'https://stateparks.oregon.gov/index.cfm?do=park.profile&parkId=134',
-      site: 'B14 B',
-      checkIn: 'Fri Sep 10 2021',
-      checkOut: 'Sun Sep 12 2021',
-      activities: 'hiking, swimming',
-      placeVisited: 'Beach, historic lighthouse',
-      fileName: 'camp_stamp',
-      fileURL: null,
-    },
-  });
-
+const Maker = ({ FileInput, authService, cardRepository }: any) => {
+  const [cards, setCards] = useState<Campings>({});
+  console.log(cards);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -68,10 +22,20 @@ const Maker = ({ FileInput, authService }: any) => {
     history.push('/');
   };
 
-  const user = useSelector((state: RootState) => state.user.uid);
+  const userId = useSelector((state: RootState) => state.user.uid);
 
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards: Campings) =>
+      setCards(cards)
+    );
+    return () => stopSync(); // when component did upmount
+  }, [userId, cardRepository]);
+
+  useEffect(() => {
+    if (!userId) {
       history.push('/');
     }
   });
@@ -82,6 +46,7 @@ const Maker = ({ FileInput, authService }: any) => {
       updatedCards[card.id] = card;
       return updatedCards;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card: Camping) => {
@@ -90,6 +55,7 @@ const Maker = ({ FileInput, authService }: any) => {
       delete updatedCards[card.id];
       return updatedCards;
     });
+    cardRepository.removeCard(userId, card);
   };
 
   return (
