@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import styles from './CardAddForm.module.css';
 // import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
 import { Camping, CardAddFormProps, FileProps } from '../../../types/Camping';
 import { v1 as uuidV1 } from 'uuid';
 
-const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
+const CardAddForm = memo(({ FileInput, onAdd }: CardAddFormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
@@ -121,6 +121,5 @@ const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
       <Button name="Add" onClick={onSubmit} />
     </form>
   );
-};
-
+});
 export default CardAddForm;

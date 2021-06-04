@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Header.module.css';
 
-const Header = ({ onLogout }: any) => {
+const Header = memo(({ onLogout }: any) => {
   return (
     <header className={styles.header}>
       {onLogout && (
@@ -13,6 +13,6 @@ const Header = ({ onLogout }: any) => {
       <h1 className={styles.title}>My Campings</h1>
     </header>
   );
-};
+});
 
 export default Header;

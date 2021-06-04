@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Card.module.css';
 import { CardProps } from '../../types/Camping';
 
 const DEFAULT_IMAGE = '/images/camping_stamp.png';
 
-const Card = ({ card }: CardProps) => {
+const Card = memo(({ card }: CardProps) => {
   const {
     theme,
     name,
@@ -37,7 +37,7 @@ const Card = ({ card }: CardProps) => {
       </div>
     </li>
   );
-};
+});
 
 function getStyles(theme: string) {
   switch (theme) {

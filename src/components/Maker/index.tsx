@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import Editor from '../Editor';
@@ -15,11 +15,11 @@ const Maker = ({ FileInput, authService, cardRepository }: any) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onLogout = () => {
+  const onLogout = useCallback(() => {
     authService.logout();
     dispatch(logout());
     history.push('/');
-  };
+  }, [authService, dispatch, history]);
 
   const userId = useSelector((state: RootState) => state.user.uid);
 
