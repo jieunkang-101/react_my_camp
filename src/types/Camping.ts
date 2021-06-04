@@ -11,7 +11,7 @@ export interface Camping {
   checkOut: string;
   activities: string;
   placeVisited: string;
-  fileName: string;
+  fileName: string | null;
   fileURL: string | null;
 }
 
@@ -44,4 +44,9 @@ export interface CardEditFormProps {
   card: Camping;
   updateCard: (card: Camping) => void;
   deleteCard: (card: Camping) => void;
+}
+
+export interface FileProps {
+  name: string | null;
+  url: string | null;
 }

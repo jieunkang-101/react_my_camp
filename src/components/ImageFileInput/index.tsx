@@ -5,8 +5,17 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }: any) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const onButtonClick = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('image', event);
     if (inputRef.current) inputRef.current.click();
+  };
+
+  const onChange = async (event: React.ChangeEvent) => {
+    let target = event.target as HTMLInputElement;
+    const file = target.files ? target.files[0] : null;
+    const uploaded = await imageUploader.upload(file);
+    onFileChange({
+      name: uploaded.original_filename,
+      url: uploaded.url,
+    });
   };
 
   return (
@@ -17,6 +26,7 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }: any) => {
         type="file"
         accept="image/*"
         name="file"
+        onChange={onChange}
       />
       <button className={styles.button} onClick={onButtonClick}>
         {name || 'No file'}

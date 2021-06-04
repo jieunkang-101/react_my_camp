@@ -79,7 +79,6 @@ const Maker = ({ FileInput, authService }: any) => {
   const createOrUpdateCard = (card: Camping) => {
     setCards((cards) => {
       const updatedCards = { ...cards };
-      console.log('update', updatedCards);
       updatedCards[card.id] = card;
       return updatedCards;
     });
@@ -88,7 +87,6 @@ const Maker = ({ FileInput, authService }: any) => {
   const deleteCard = (card: Camping) => {
     setCards((cards) => {
       const updatedCards = { ...cards };
-      console.log('delete', updatedCards);
       delete updatedCards[card.id];
       return updatedCards;
     });

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styles from './CardEditForm.module.css';
 import Button from '../../Button';
-import { CardEditFormProps } from '../../../types/Camping';
+import { CardEditFormProps, FileProps } from '../../../types/Camping';
 
 const CardEditForm = ({
   FileInput,
@@ -29,19 +29,28 @@ const CardEditForm = ({
     checkOut,
     activities,
     placeVisited,
-    fileName,
-    fileURL,
+    // fileName,
+    // fileURL,
   } = card;
 
-  const onChange = (event: any) => {
-    if (event.currentTarget == null) {
+  const onFileChange = (file: FileProps) => {
+    updateCard({
+      ...card,
+      fileName: file.name,
+      fileURL: file.url,
+    });
+  };
+
+  const onChange = (event: React.FormEvent): void => {
+    // const onChange = (event: React.SyntheticEvent): void => {
+    let target = event.currentTarget as HTMLInputElement;
+    if (target == null) {
       return;
     }
     event.preventDefault();
-    console.log(event.currentTarget.name);
     updateCard({
       ...card,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [target.name]: target.value,
     });
   };
 
@@ -74,9 +83,9 @@ const CardEditForm = ({
         value={theme}
         onChange={onChange}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="colorful">Colorful</option>
+        <option value="Light">Light</option>
+        <option value="Dark">Dark</option>
+        <option value="Colorful">Colorful</option>
       </select>
 
       <input
@@ -126,7 +135,7 @@ const CardEditForm = ({
         onChange={onChange}
       />
       <div className={styles.fileInput}>
-        <FileInput />
+        <FileInput name={name} onFileChange={onFileChange} />
       </div>
       <Button name="Delete" onClick={onSubmit} />
     </form>

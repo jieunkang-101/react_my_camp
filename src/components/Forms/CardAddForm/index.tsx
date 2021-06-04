@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './CardAddForm.module.css';
 // import ImageFileInput from '../../ImageFileInput';
 import Button from '../../Button';
-import { Camping, CardAddFormProps } from '../../../types/Camping';
+import { Camping, CardAddFormProps, FileProps } from '../../../types/Camping';
 import { v1 as uuidV1 } from 'uuid';
 
 const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
@@ -16,6 +16,14 @@ const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
   const websiteURLRef = useRef<HTMLInputElement>(null);
   const activitiesRef = useRef<HTMLTextAreaElement>(null);
   const placeVisitedRef = useRef<HTMLTextAreaElement>(null);
+  const [file, setFile] = useState<FileProps>({ name: null, url: null });
+
+  const onFileChange = (file: FileProps) => {
+    setFile({
+      name: file.name,
+      url: file.url,
+    });
+  };
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -32,8 +40,8 @@ const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
       placeVisited: placeVisitedRef.current
         ? placeVisitedRef.current.value
         : '',
-      fileName: '',
-      fileURL: '',
+      fileName: file.name || '',
+      fileURL: file.url || '',
     };
     if (formRef.current) formRef.current.reset();
     onAdd(card);
@@ -107,7 +115,7 @@ const CardAddForm = ({ FileInput, onAdd }: CardAddFormProps) => {
         placeholder="activities"
       />
       <div className={styles.fileInput}>
-        <FileInput />
+        <FileInput name={file.name} onFileChange={onFileChange} />
       </div>
       <Button name="Add" onClick={onSubmit} />
     </form>
