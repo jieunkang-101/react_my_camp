@@ -15,7 +15,6 @@ const Card = ({ card }: CardProps) => {
     checkOut,
     activities,
     placeVisited,
-    // fileName,
     fileURL,
   } = card;
   const url = fileURL || DEFAULT_IMAGE;

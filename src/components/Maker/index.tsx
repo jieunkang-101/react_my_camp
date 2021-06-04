@@ -55,7 +55,7 @@ const Maker = ({ FileInput, authService }: any) => {
       activities: 'hiking, swimming',
       placeVisited: 'Beach, historic lighthouse',
       fileName: 'camp_stamp',
-      fileURL: 'or_state_parks.png',
+      fileURL: null,
     },
   });
 
