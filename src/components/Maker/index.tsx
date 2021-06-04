@@ -12,7 +12,6 @@ import { Camping, Campings } from '../../types/Camping';
 
 const Maker = ({ FileInput, authService, cardRepository }: any) => {
   const [cards, setCards] = useState<Campings>({});
-  console.log(cards);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -38,7 +37,7 @@ const Maker = ({ FileInput, authService, cardRepository }: any) => {
     if (!userId) {
       history.push('/');
     }
-  });
+  }, [userId, history]);
 
   const createOrUpdateCard = (card: Camping) => {
     setCards((cards) => {
