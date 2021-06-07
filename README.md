@@ -22,13 +22,9 @@ A React application that have CRUD functionality of user's camping journal cards
 
 ### ▫︎ Preview
 
-<tabel>
-  <tr>
-    <td><img src="./public/images/screen-shot-1.png" width="240px" height="180px" /></td>
-    <td><img src="./public/images/screen-shot-2.png" width="240px" height="180px" /></td>
-    <td><img src="./public/images/screen-shot-3.png" width="240px" height="180px" /></td>
-  </tr>
-</table>
+<img src="./public/images/screen-shot-1.png" width="240px" height="180px" />
+<img src="./public/images/screen-shot-2.png" width="240px" height="180px" />
+<img src="./public/images/screen-shot-3.png" width="240px" height="180px" />
 
 ### ▫︎ Implemented the following features:
 
