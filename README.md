@@ -17,14 +17,19 @@ A React application that have CRUD functionality of user's camping journal cards
 
 - [Redux Toolkit](https://redux-toolkit.js.org/) for state management
 - [Firebase](https://firebase.google.com/docs?authuser=0) for authentication /realtime database
+- [Cloudinary](https://cloudinary.com/) for uploading images
 - [PostCSS](https://postcss.org/) for transforming CSS
 - [ESLint](https://eslint.org/) for linting and [Prettier](https://prettier.io/) to maintain code conventions and formatting
 
 ### ▫︎ Preview
 
-<img src="./public/images/screen-shot-1.png" width="240px" height="180px" />
-<img src="./public/images/screen-shot-2.png" width="240px" height="180px" />
-<img src="./public/images/screen-shot-3.png" width="240px" height="180px" />
+<table>
+  <tr>
+<td valign="top"><img src="./public/images/screen-shot-1.png" height="180px" /></td>
+<td valign="top"><img src="./public/images/screen-shot-2.png" height="180px" /></td>
+<td valign="top"><img src="./public/images/screen-shot-3.png" height="180px" /></td>
+ </tr>
+</table>
 
 ### ▫︎ Implemented the following features:
 
